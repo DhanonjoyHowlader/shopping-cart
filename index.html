@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <button id="btnM2" class="btn btn-default"><i class="fas fa-minus"></i></button>
                            <input id="ValueBox2" type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="btnP2" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="Price2">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="subTotal">1,278</span></h5>
+                        <h5>$ <span id="tax">0</span></h5>
+                        <h5>$ <span id="total">1,278</span></h5>
                      </div>
                   </div>
                </div>
@@ -81,16 +81,11 @@
       //section 1
       buttonMinus("btnM1", "Price1", "ValueBox1");
 
-      const BtnP1 = document.getElementById("btnP1");
-      let unitPrice2 = document.getElementById("Price1").innerText;
-      let unitPrice2Number = parseFloat(unitPrice2);
-      BtnP1.addEventListener("click", function(){
-         let qty = document.getElementById("ValueBox1").value;
-         qty++;
-         document.getElementById("ValueBox1").value = qty;
-         document.getElementById("Price1").innerText =  qty * unitPrice2Number;
-         
-      })
+      buttonPlus("btnP1", "Price1", "ValueBox1");
+
+      buttonMinus("btnM2", "Price2", "ValueBox2");
+
+      buttonPlus("btnP2", "Price2", "ValueBox2");
 
       function buttonMinus(btnM, Price, ValueBox){
          const BtnM = document.getElementById(btnM);
@@ -102,10 +97,38 @@
                qty--;
                document.getElementById(ValueBox).value = qty;
                document.getElementById(Price).innerText =  qty * unitPriceNumber;
+               updateTotals()
             }
             
          })
       }
+      function buttonPlus(btnP, Price, ValueBox){
+         const BtnP = document.getElementById(btnP);
+         let unitPrice = document.getElementById(Price).innerText;
+         let unitPriceNumber = parseFloat(unitPrice);
+         BtnP.addEventListener("click", function(){
+            let qty = document.getElementById(ValueBox).value;
+            qty++;
+            document.getElementById(ValueBox).value = qty;
+            document.getElementById(Price).innerText =  qty * unitPriceNumber;
+            updateTotals()
+            
+         })
+      }
+      function updateTotals(){
+         const price1 = parseFloat(document.getElementById("Price1").innerText);
+         const price2 = parseFloat(document.getElementById("Price2").innerText);
+
+         const subtotal = price1 + price2;
+         const tax = 0; // future logic
+         const total = subtotal + tax;
+
+         document.getElementById("subTotal").innerText = subtotal;
+         document.getElementById("tax").innerText = tax;
+         document.getElementById("total").innerText= total;
+      }
+
+
 
    </script>
 </body>
