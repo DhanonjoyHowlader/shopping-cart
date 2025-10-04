@@ -79,34 +79,33 @@
    </section>
    <script>
       //section 1
-      //let count1 = 0;
-      const BtnM1 = document.getElementById("btnM1");
-      BtnM1.addEventListener("click", function(){
-         document.getElementById("ValueBox1").value--;
-         const Price1 = document.getElementById("Price1").innerText;
-         const Price1Number = parseFloat(Price1);
-         let defaultPrice = 1219;
-         //console.log(CurrentPrice1Number);
-         //const TotalPrice1 = ;
-         // we need to close that one too
-         document.getElementById("Price1").innerText = Price1Number - defaultPrice;
+      buttonMinus("btnM1", "Price1", "ValueBox1");
 
-         
-      })
-      //let count2 = 0;
       const BtnP1 = document.getElementById("btnP1");
+      let unitPrice2 = document.getElementById("Price1").innerText;
+      let unitPrice2Number = parseFloat(unitPrice2);
       BtnP1.addEventListener("click", function(){
-         document.getElementById("ValueBox1").value++;
-         const Price1 = document.getElementById("Price1").innerText;
-         const Price1Number = parseFloat(Price1);
-         let defaultPrice = 1219;
-         // we need to close that one too
-         document.getElementById("Price1").innerText = Price1Number + defaultPrice;
-
+         let qty = document.getElementById("ValueBox1").value;
+         qty++;
+         document.getElementById("ValueBox1").value = qty;
+         document.getElementById("Price1").innerText =  qty * unitPrice2Number;
          
       })
 
-      
+      function buttonMinus(btnM, Price, ValueBox){
+         const BtnM = document.getElementById(btnM);
+         let unitPrice = document.getElementById(Price).innerText;
+         let unitPriceNumber = parseFloat(unitPrice);
+         BtnM.addEventListener("click", function(){
+            let qty = document.getElementById(ValueBox).value;
+            if (qty > 0){
+               qty--;
+               document.getElementById(ValueBox).value = qty;
+               document.getElementById(Price).innerText =  qty * unitPriceNumber;
+            }
+            
+         })
+      }
 
    </script>
 </body>
