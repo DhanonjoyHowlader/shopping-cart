@@ -87,17 +87,25 @@
 
       buttonPlus("btnP2", "Price2", "ValueBox2");
 
-      crossBtn("remove1", "item1");
+      crossBtn("remove1", "item1", "ValueBox1", "Price1" );
 
-      crossBtn("remove2", "item2");
+      crossBtn("remove2", "item2", "ValueBox2", "Price2");
+
+      let qty;
 
       
 
-      function crossBtn(remove, item){
+      function crossBtn(remove, item, ValueBox, Price){
          const crossBtn = document.getElementById(remove);
+         let unitPrice = document.getElementById(Price).innerText;
+         let unitPriceNumber = parseFloat(unitPrice);
          crossBtn.addEventListener("click", function(){
-            const item1 = document.getElementById(item);
-            item1.style.display = "none";
+            const itemR = document.getElementById(item);
+            itemR.style.display = "none";
+            qty = 0;
+            document.getElementById(ValueBox).value = qty;
+            document.getElementById(Price).innerText =  qty * unitPriceNumber;
+            updateTotals()
          })
       }
 
@@ -106,7 +114,7 @@
          let unitPrice = document.getElementById(Price).innerText;
          let unitPriceNumber = parseFloat(unitPrice);
          BtnM.addEventListener("click", function(){
-            let qty = document.getElementById(ValueBox).value;
+            qty = document.getElementById(ValueBox).value;
             if (qty > 0){
                qty--;
                document.getElementById(ValueBox).value = qty;
@@ -121,7 +129,7 @@
          let unitPrice = document.getElementById(Price).innerText;
          let unitPriceNumber = parseFloat(unitPrice);
          BtnP.addEventListener("click", function(){
-            let qty = document.getElementById(ValueBox).value;
+            qty = document.getElementById(ValueBox).value;
             qty++;
             document.getElementById(ValueBox).value = qty;
             document.getElementById(Price).innerText =  qty * unitPriceNumber;
@@ -134,7 +142,7 @@
          const price2 = parseFloat(document.getElementById("Price2").innerText);
 
          const subtotal = price1 + price2;
-         const tax = 0; // future logic
+         const tax = 0;
          const total = subtotal + tax;
 
          document.getElementById("subTotal").innerText = subtotal;
